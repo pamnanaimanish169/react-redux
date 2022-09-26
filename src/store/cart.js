@@ -8,7 +8,7 @@ const initialState = {
   total : 0
 };
 
-const cartReducer = (state = initialState, action) => {
+export const cartReducer = (state = initialState, action) => {
   if (action.type === "add") {
     return {
       cartList: [...state?.cartList, { ...action?.payload, amount: 1 }],

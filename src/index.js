@@ -5,10 +5,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from 'react-redux';
-import { store, persistor }  from "./store/cart";
+import { persistor }  from "./store/cart";
 import { PersistGate } from 'redux-persist/integration/react';
+import { createStore } from 'redux';
+import { cartReducer } from "./store/cart";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const store = createStore(cartReducer);
 root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
