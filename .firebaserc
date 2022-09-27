@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "lists-39a6b"
-  }
+    "default": "lists-39a6b",
+    "staging": "list-staging"
+  },
+  "targets": {},
+  "etags": {}
 }
