@@ -207,31 +207,13 @@ function App() {
                   >
                     Add to Cart
                   </Button>
+                  
                 </Card.Body>
               </Card>
             </Col>
           ))}
         </Row>
       </Container>
-      <ListGroup horizontal={"sm"}>
-        {products.map((item) => (
-          // <ListGroup.Item key={item?.id} bsPrefix="list-item p-4">
-          //   <Card style={{ width: "18rem" }}>
-          //     <Card.Img src={item?.image} className="responsive" />
-
-          //     <Card.Body>
-          //       <Card.Title>{item?.title}</Card.Title>
-          //       <Card.Text>{item?.description}</Card.Text>
-
-          //       <Button variant="primary" onClick={() => handleAddToCart(item)}>
-          //         Add to Cart
-          //       </Button>
-          //     </Card.Body>
-          //   </Card>
-          // </ListGroup.Item>
-          <></>
-        ))}
-      </ListGroup>
     </div>
   );
 }

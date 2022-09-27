@@ -9,7 +9,6 @@ on:
 jobs:
   Build_Deploy_Web:
     runs-on: ubuntu-latest
-
     env:
       CI_FIREBASE_MESSAGE: ${{ github.event.head_commit.message }} - ${{ github.event.head_commit.url }}/checks
 
@@ -41,4 +40,3 @@ jobs:
           args: deploy --only hosting -P default --message "$CI_FIREBASE_MESSAGE"
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          
