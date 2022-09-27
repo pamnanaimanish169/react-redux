@@ -36,12 +36,12 @@ jobs:
       - name: Build & Deploy Staging
         if: contains(github.ref, 'refs/heads/release/')
         run: |
-          npm  build
+          npm run build
           npm firebase deploy --only hosting -P staging --token ${{ SECRETS.CI_FIREBASE_TOKEN }} --message "$CI_FIREBASE_MESSAGE"
 
       ## Build & Deploy Production
       - name: Build & Deploy Production
         if: github.ref == 'refs/heads/master'
         run: |
-          npm build
+          npm run build
           npm firebase deploy --only hosting -P production --token ${{ SECRETS.CI_FIREBASE_TOKEN }} --message "$CI_FIREBASE_MESSAGE"
