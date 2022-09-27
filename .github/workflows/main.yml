@@ -9,11 +9,6 @@ on:
 jobs:
   Build_Deploy_Web:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [10.x]
-
     env:
       CI_FIREBASE_MESSAGE: ${{ github.event.head_commit.message }} - ${{ github.event.head_commit.url }}/checks
 
@@ -21,27 +16,27 @@ jobs:
       ## Checkout current branch
       - uses: actions/checkout@v1
 
-      ## Setup node
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-
       ## Install dependencies
       - name: npm install
         run: |
           npm i
 
       ## Build & Deploy Staging
-      - name: Build & Deploy Staging
-        if: contains(github.ref, 'refs/heads/release/')
-        run: |
-          npm  build
-          npm firebase deploy --only hosting -P staging --token ${{ SECRETS.CI_FIREBASE_TOKEN }} --message "$CI_FIREBASE_MESSAGE"
+      - name: Build Staging
+        run : npm run build
+      - name : Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting -P staging --message "$CI_FIREBASE_MESSAGE"
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
       ## Build & Deploy Production
-      - name: Build & Deploy Production
-        if: github.ref == 'refs/heads/master'
-        run: |
-          npm build
-          npm firebase deploy --only hosting -P production --token ${{ SECRETS.CI_FIREBASE_TOKEN }} --message "$CI_FIREBASE_MESSAGE"
+      - name: Build Production
+        run: npm run build
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting -P default --message "$CI_FIREBASE_MESSAGE"
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
