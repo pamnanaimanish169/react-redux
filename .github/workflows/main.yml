@@ -23,22 +23,14 @@ jobs:
           npm i
 
       ## Build & Deploy Staging
-      - name: Build Staging
-        run : npm run build
-      - name : Deploy to Firebase
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only hosting -P staging --message "$CI_FIREBASE_MESSAGE"
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      name : Build & Deploy Staging
+      if: contains(github.ref, 'refs/heads/develop/')
+        run: npm run build
+        run: firebase deploy --only hosting -P staging --token ${{ SECRETS.CI_FIREBASE_TOKEN }} --message "$CI_FIREBASE_MESSAGE"
 
       ## Build & Deploy Production
-      - name: Build Production
+      name : Build & Deploy Production
+      if: github.ref == 'refs/heads/master'
         run: npm run build
-      - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only hosting -P default --message "$CI_FIREBASE_MESSAGE"
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run: firebase deploy --only hosting -P default --token ${{ SECRETS.CI_FIREBASE_TOKEN }} --message "$CI_FIREBASE_MESSAGE"
           
