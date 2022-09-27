@@ -13,9 +13,6 @@ jobs:
       CI_FIREBASE_MESSAGE: ${{ github.event.head_commit.message }} - ${{ github.event.head_commit.url }}/checks
 
     steps:
-      ## Checkout current branch
-      - uses: actions/checkout@v1
-
       ## Install dependencies
       - name: npm install
         run: |
